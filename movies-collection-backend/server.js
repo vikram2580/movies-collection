@@ -8,7 +8,7 @@ const app_1 = __importDefault(require("./Server/Config/app"));
 const debug_1 = __importDefault(require("debug"));
 (0, debug_1.default)('ice6:server');
 const http_1 = __importDefault(require("http"));
-let port = normalizePort(process.env.PORT || '3000');
+let port = normalizePort(process.env.PORT || '5000');
 app_1.default.set('port', port);
 const server = http_1.default.createServer(app_1.default);
 server.listen(port);
