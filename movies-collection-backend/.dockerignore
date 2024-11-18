@@ -1,0 +1,4 @@
+# .dockerignore files in each folder (backend, frontend, nft)
+node_modules
+npm-debug.log
+.env

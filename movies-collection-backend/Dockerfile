@@ -1,23 +1,18 @@
-# Use the official Node.js image as the base image
-FROM node:16
+# backend/Dockerfile
+FROM node:18-alpine
 
-# Set the working directory in the container
 WORKDIR /app
 
-# Copy package.json and package-lock.json to install dependencies
+# Copy package.json and install dependencies
 COPY package*.json ./
-
-# Install dependencies
 RUN npm install
 
 # Copy the rest of the application code
 COPY . .
 
-# Copy the .env file to the container
-COPY .env .env
+# Create the .env file inside the container
+RUN echo "MONGO_URI=mongodb://mongodb:27017/" > .env
 
-# Expose the application port
 EXPOSE 5000
 
-# Run the application
 CMD ["npm", "start"]
