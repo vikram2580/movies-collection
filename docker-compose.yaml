@@ -1,0 +1,43 @@
+services:
+  mongodb:
+    image: mongo:6.0
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - app-network
+
+  backend:
+    build: ./movies-collection-backend
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./movies-collection-backend:/app
+    env_file:
+      - ./movies-collection-backend/.env
+    command: sh -c "npm install && npm start"
+    depends_on:
+      - mongodb
+    networks:
+      - app-network
+
+  frontend:
+    build: ./movies-collection-frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./movies-collection-frontend:/app
+    command: sh -c "npm install && npm start"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mongo-data:
+    driver: local
