@@ -14,7 +14,7 @@ services:
   frontend:
     build: ./movies-collection-frontend
     ports:
-      - "3000:3000"
+      - "3006:3006"
     volumes:
       - ./movies-collection-frontend:/app
     command: sh -c "npm install && npm start"
