@@ -39,7 +39,7 @@ pipeline {
         withKubeConfig([credentialsId: 'kubeconfig-credential-id']) {
           script {
             bat """
-            helm upgrade --install movies-collection ./helm-chart ^
+            C:\\Program Files\\windows-amd64\\helm.exe upgrade --install movies-collection ./helm-chart ^
                 --set backend.image=${REGISTRY}/${APP_NAME}-backend:latest ^
                 --set frontend.image=${REGISTRY}/${APP_NAME}-frontend:latest
             """
