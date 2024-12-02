@@ -38,9 +38,9 @@ pipeline {
       steps {
         withKubeConfig([credentialsId: 'kubeconfig-credential-id']) {
           script {
-            sh """
-            helm upgrade --install movies-collection ./helm-chart \
-                --set backend.image=${REGISTRY}/${APP_NAME}-backend:latest \
+            bat """
+            helm upgrade --install movies-collection ./helm-chart ^
+                --set backend.image=${REGISTRY}/${APP_NAME}-backend:latest ^
                 --set frontend.image=${REGISTRY}/${APP_NAME}-frontend:latest
             """
           }
