@@ -1,15 +1,23 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "movies-collection.fullname" . }}
-  labels:
-    {{- include "movies-collection.labels" . | nindent 4 }}
+  name: {{ .Release.Name }}-backend
 spec:
-  type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.service.port }}
-      targetPort: http
-      protocol: TCP
-      name: http
+  - port: 5000
+    targetPort: 5000
   selector:
-    {{- include "movies-collection.selectorLabels" . | nindent 4 }}
+    app: backend
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-frontend
+spec:
+  ports:
+  - port: 3006
+    targetPort: 3006
+  selector:
+    app: frontend
