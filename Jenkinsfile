@@ -16,7 +16,7 @@ pipeline {
       steps {
         withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
           script {
-            docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials') {
+            docker.withRegistry('https://index.docker.io/v1/', 'docker-hub') {
               docker.build("${REGISTRY}/${APP_NAME}-backend", "./movies-collection-backend").push('latest')
             }
           }
@@ -27,7 +27,7 @@ pipeline {
       steps {
         withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
           script {
-            docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials') {
+            docker.withRegistry('https://index.docker.io/v1/', 'docker-hub') {
               docker.build("${REGISTRY}/${APP_NAME}-frontend", "./movies-collection-frontend").push('latest')
             }
           }
