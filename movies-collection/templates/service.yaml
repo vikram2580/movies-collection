@@ -8,7 +8,7 @@ spec:
   ports:
   - port: 5000
     targetPort: 5000
-    nodePort: 50006  # Specify a port in the range 30000-32767
+    nodePort: 30007  # Specify a port in the range 30000-32767
   selector:
     app: backend
 
