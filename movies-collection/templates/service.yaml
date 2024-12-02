@@ -16,8 +16,10 @@ kind: Service
 metadata:
   name: {{ .Release.Name }}-frontend
 spec:
+  type: NodePort
   ports:
   - port: 3006
     targetPort: 3006
+    nodePort: 30006  # Specify a port in the range 30000-32767
   selector:
     app: frontend
