@@ -1,4 +1,3 @@
-// Jenkins pipeline to deploy movies-collection project to Kubernetes using Helm
 pipeline {
   agent any
   environment {
@@ -15,15 +14,23 @@ pipeline {
     }
     stage('Build Backend Image') {
       steps {
-        script {
-          docker.build("${REGISTRY}/${APP_NAME}-backend", "./movies-collection-backend").push('latest')
+        withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+          script {
+            docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials') {
+              docker.build("${REGISTRY}/${APP_NAME}-backend", "./movies-collection-backend").push('latest')
+            }
+          }
         }
       }
     }
     stage('Build Frontend Image') {
       steps {
-        script {
-          docker.build("${REGISTRY}/${APP_NAME}-frontend", "./movies-collection-frontend").push('latest')
+        withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+          script {
+            docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials') {
+              docker.build("${REGISTRY}/${APP_NAME}-frontend", "./movies-collection-frontend").push('latest')
+            }
+          }
         }
       }
     }
@@ -43,10 +50,8 @@ pipeline {
   }
   post {
     always {
-      steps {
-        script {
-          cleanWs()
-        }
+      script {
+        cleanWs()
       }
     }
   }
