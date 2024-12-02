@@ -1,8 +1,7 @@
 pipeline {
   agent any
   environment {
-    KUBECONFIG = 'C:\\Users\\vikra\\.kube\\config' // Path to your kubeconfig file
-    REGISTRY = "vikramsingh2580"
+    REGISTRY = "vikramsingh2580" // Replace with your Docker Hub or private registry URL
     APP_NAME = "movies-collection"
   }
   stages {
@@ -39,10 +38,9 @@ pipeline {
       steps {
         withKubeConfig([credentialsId: 'kubeconfig-credential-id']) {
           script {
-            // Run Helm with the KUBECONFIG environment variable explicitly set
             bat '''
             set KUBECONFIG=C:\\Users\\vikra\\.kube\\config
-            "C:\\Program Files\\windows-amd64\\helm.exe" upgrade --install movies-collection ./helm-chart \
+            "C:\\Program Files\\windows-amd64\\helm.exe" upgrade --install movies-collection "G:\\Humber\\CCGC 5001-Virtuallization\\Project\\movies-collection\\movies-collection" \
                 --set backend.image=${REGISTRY}/${APP_NAME}-backend:latest \
                 --set frontend.image=${REGISTRY}/${APP_NAME}-frontend:latest
             '''
