@@ -41,8 +41,8 @@ pipeline {
             bat '''
             set KUBECONFIG=C:\\Users\\vikra\\.kube\\config
             "C:\\Program Files\\windows-amd64\\helm.exe" upgrade --install movies-collection "G:\\Humber\\CCGC 5001-Virtuallization\\Project\\movies-collection\\movies-collection" \
-                --set backend.image=${REGISTRY}/${APP_NAME}-backend:latest \
-                --set frontend.image=${REGISTRY}/${APP_NAME}-frontend:latest
+                --set backend.image=vikramsingh2580/movies-collection-backend:latest \
+                --set frontend.image=vikramsingh2580/movies-collection-frontend:latest
             '''
           }
         }
